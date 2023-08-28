@@ -1,0 +1,85 @@
+define motor driver to digital pins 5, 6, 9, and 10
+define IR sensors to analog pins 0 and 1
+define accelerometer to SDA and SCL pins
+
+// constant variables (numbers TBD)
+max_speed
+min_front_dist
+min_top_dist
+accelerometer_threshold
+
+
+PROCEDURE setup()
+	open serial port
+	set motor driver pins to output mode
+	set IR sensor pins to input mode
+	set accelerometer pins to input mode  
+
+
+PROCEDURE loop()
+	left_motor = 0.5 * max_speed
+	right_motor = 0.5 * max_speed
+	IF front_proximity_sensor_value <= min_front_dist
+		move_away_from_obstacle(left_motor, right_motor)
+	IF top_proximity_sensor_val <= min_top_dist
+		stop for 10 seconds
+	IF cat_hits_mouse(accelerometer_data) == TRUE
+		cat_hit_mouse_actions()
+
+
+PROCEDURE move_away_from_obstacle(left_motor, right_motor)
+	random_turn = random("left", "right", "180")
+	IF random_turn == "left"
+		right_motor = -(left_motor)
+		90 degree turn
+	ELSE IF random_turn == "right"
+		left_motor = -(right_motor)
+		90 degree turn
+	ELSE IF random_turn == "180"
+		right_motor == -(left_motor)
+		180 degree turn
+	left_motor = 0.5 * max_speed
+	right_motor = 0.5 * max_speed
+
+
+PROCEDURE cat_hits_mouse(accelerometer_data)
+	IF accelerometer_data > accelerometer_threshold
+		return TRUE
+	return FALSE
+
+
+PROCEDURE cat_hit_mouse_actions()
+	random_action = random(1, 2, 3)
+	IF random_action == 1
+		mouse stops for 10 seconds
+
+	IF random_action == 2
+		time = 0 seconds
+		WHILE time < 5 seconds
+		left_motor = max_speed
+		right_motor = max_speed
+	IF front_proximity_sensor_value <= min_front_dist
+		move_away_from_obstacle(left_motor, right_motor)
+	IF top_proximity_sensor_val <= min_top_dist
+		stop for 10 seconds
+	time = time + 1 seconds
+
+	IF random_action = 3
+		mouse screams
+		left_motor = random(100, 255)
+		right_motor = random(100, 255)
+		time = 0 seconds
+		WHILE time < 5 seconds
+			random_turn = random("left", "right", "180")
+			IF random_turn == "left"
+				right_motor = -(left_motor)
+				90 degree turn
+			ELSE IF random_turn == "right"
+				left_motor = -(right_motor)
+				90 degree turn
+			ELSE IF random_turn == "180"
+				right_motor == -(left_motor)
+				180 degree turn
+			left_motor = random(100, 255)
+			right_motor = random(100, 255)
+			time = time + 1 seconds
