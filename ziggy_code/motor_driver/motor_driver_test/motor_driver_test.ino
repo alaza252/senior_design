@@ -9,7 +9,7 @@ void setup() {
   pinMode(MOTOR1_IN1, OUTPUT);
   pinMode(MOTOR1_IN2, OUTPUT);
   pinMode(MOTOR2_IN1, OUTPUT);
-  pinMode(MOTOR2_IN2, OUTPUT);9+
+  pinMode(MOTOR2_IN2, OUTPUT);
 }
 
 void loop() {
